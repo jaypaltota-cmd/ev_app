@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EV Smart Route - Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3b82f6, #22c55e);
+        }
+        .container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            margin-top: 0;
+            color: #555;
+        }
+        .roles {
+            margin-top: 25px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .role-card {
+            flex: 1 1 180px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            border: 1px solid #e5e7eb;
+        }
+        .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            background: #e0f2fe;
+        }
+        .role-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .role-desc {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: #2563eb;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .footer-text {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>EV Smart Route & Charging Assistant</h1>
+    <p class="subtitle">Choose how you want to log in</p>
+
+    <div class="roles">
+        <!-- Admin card -->
+        <div class="role-card" onclick="goTo('admin')">
+            <div class="role-title">Admin</div>
+            <div class="role-desc">
+                Verify station owners and monitor the charging station directory.
+            </div>
+            <button class="btn">Admin Login</button>
+        </div>
+<!-- Owner Registration-->
+        <div class="role-card" onclick="goTo('ownerreg')">
+            <div class="role-title">Owner</div>
+            <div class="role-desc">
+                Manage your EV charging stations: add, edit, and update details.
+            </div>
+            <button class="btn">Owner Login</button>
+        </div>
+
+        <!-- Owner card -->
+        <div class="role-card" onclick="goTo('owner')">
+            <div class="role-title">Owner</div>
+            <div class="role-desc">
+                Manage your EV charging stations: add, edit, and update details.
+            </div>
+            <button class="btn">Owner Login</button>
+        </div>
+
+        <!-- User card -->
+        <div class="role-card" onclick="goTo('user')">
+            <div class="role-title">User</div>
+            <div class="role-desc">
+                Check range, routes, and browse verified charging stations.
+            </div>
+            <button class="btn">User Login</button>
+        </div>
+    </div>
+
+    <p class="footer-text">
+        Tip: Make sure Apache & MySQL are running in XAMPP before using the app.
+    </p>
+</div>
+
+<script>
+function goTo(role) {
+    if (role === 'admin') {
+        window.location.href = 'admin/login.php';
+    }else if (role === 'ownerreg') {
+        window.location.href = 'D:/Ev/OwnerReg.html';
+    } else if (role === 'owner') {
+        window.location.href = 'D:/Ev/ownerlogin.html';
+    } else if (role === 'user') {
+        window.location.href = 'D:/Ev/user.html';
+    }
+}
+</script>
+
+</body>
+</html>

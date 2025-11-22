@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Owner Login</title>
+    <style>
+        body {
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.08);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px 8px;
+            margin-top: 5px;
+            border: 1px solid #ccd0d5;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.97rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Owner Login</h2>
+        <form action="/owner_dashboard" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit">Login</button>
+        </form>
+        <a href="login.html" class="back-link">Back to Login</a>
+    </div>
+</body>
+</html>

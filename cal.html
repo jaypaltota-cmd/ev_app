@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EV Battery Range Calculator - Blue & White Theme</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8f0fe;
+    color: #002e6d;
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgb(0 46 109 / 0.3);
+    padding: 2rem 3rem;
+    width: 350px;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 0.45rem 0.7rem;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    border: 1.8px solid #6699ff;
+    border-radius: 6px;
+    color: #002e6d;
+    outline-offset: 2px;
+    transition: border-color 0.3s ease;
+  }
+  input[type="number"]:focus {
+    border-color: #3366ff;
+    box-shadow: 0 0 5px #3366ff;
+  }
+
+  button {
+    margin-top: 2rem;
+    padding: 0.7rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: #3366ff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #0041c4;
+  }
+
+  #result {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #003080;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>EV Battery Range Calculator</h1>
+
+  <label for="batteryCharge">Battery Charge (%):</label>
+  <input type="number" id="batteryCharge" min="0" max="100" placeholder="e.g. 80" required>
+
+  <label for="batteryCapacity">Battery Capacity (kWh):</label>
+  <input type="number" id="batteryCapacity" min="1" placeholder="e.g. 60" required>
+
+  <label for="energyConsumption">Energy Consumption (kWh per km):</label>
+  <input type="number" id="energyConsumption" min="0.01" step="0.01" placeholder="e.g. 0.15" required>
+
+  <button onclick="calculateRange()">Calculate Range</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+function calculateRange() {
+  const batteryCharge = parseFloat(document.getElementById('batteryCharge').value);
+  const batteryCapacity = parseFloat(document.getElementById('batteryCapacity').value);
+  const energyConsumption = parseFloat(document.getElementById('energyConsumption').value);
+
+  if (isNaN(batteryCharge) || isNaN(batteryCapacity) || isNaN(energyConsumption)) {
+    document.getElementById('result').innerText = 'Please enter valid numbers in all fields.';
+    return;
+  }
+
+  if (batteryCharge < 0 || batteryCharge > 100) {
+    document.getElementById('result').innerText = 'Battery charge must be between 0 and 100%.';
+    return;
+  }
+  if (batteryCapacity <= 0) {
+    document.getElementById('result').innerText = 'Battery capacity must be positive.';
+    return;
+  }
+  if (energyConsumption <= 0) {
+    document.getElementById('result').innerText = 'Energy consumption must be positive.';
+    return;
+  }
+
+  const availableEnergy = (batteryCharge / 100) * batteryCapacity;
+  const range = availableEnergy / energyConsumption;
+  document.getElementById('result').innerText = `Estimated travel range: ${range.toFixed(2)} km`;
+}
+</script>
+
+</body>
+</html>

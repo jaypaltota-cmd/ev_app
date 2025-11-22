@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EV Charging Stations Map</title>
+  <style>
+    #map {
+      height: 90vh;
+      width: 100%;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      margin: 10px 0;
+    }
+  </style>
+  <!-- Google Maps JavaScript API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
+  <h2>EV Charging Stations Map</h2>
+  <div id="map"></div>
+
+  <script>
+    const apiKey = "8IHGK9OBxcxu0vaoSzsWxw==BRKq4ahrSRytNZDW";
+    let map;
+
+    function initMap() {
+      const center = { lat: 37.7749, lng: -122.4194 }; // San Francisco center
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: center,
+      });
+      fetchChargingStations(center.lat, center.lng);
+    }
+
+    async function fetchChargingStations(lat, lng, distance = 10) {
+      try {
+        const response = await fetch(`https://api.api-ninjas.com/v1/evcharger?lat=${lat}&lng=${lng}&distance=${distance}`, {
+          headers: { "X-Api-Key": apiKey }
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          const errorMessage = errorData?.error || `API error: ${response.status} ${response.statusText}`;
+          throw new Error(errorMessage);
+        }
+
+        const stations = await response.json();
+        console.log("Charging Stations:", stations);
+        displayStations(stations);
+      } catch (error) {
+        console.error("API call failed:", error.message);
+        alert("API error: " + error.message);
+      }
+    }
+
+    function displayStations(stations) {
+      stations.forEach(station => {
+        const position = { lat: station.latitude, lng: station.longitude };
+        const marker = new google.maps.Marker({
+          position,
+          map,
+          title: station.name
+        });
+
+        let infoContent = `<div><strong>${station.name}</strong><br/>${station.address ?? ''}, ${station.city ?? ''}, ${station.region ?? ''}, ${station.country ?? ''}<br/><br/>Connections:<ul>`;
+        station.connections.forEach(conn => {
+          infoContent += `<li>${conn.type_name} (${conn.type_official}) - Level: ${conn.level ?? 'N/A'}, Connectors: ${conn.num_connectors}</li>`;
+        });
+        infoContent += "</ul></div>";
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: infoContent,
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
+      });
+    }
+
+    window.onload = initMap;
+  </script>
+</body>
+</html>
+
+
+
+
